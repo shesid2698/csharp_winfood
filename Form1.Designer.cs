@@ -99,7 +99,6 @@
             this.rbtn_in.TabStop = true;
             this.rbtn_in.Text = "內用(加10元)";
             this.rbtn_in.UseVisualStyleBackColor = true;
-            //this.rbtn_in.CheckedChanged += new System.EventHandler(this.rbtn_in_CheckedChanged);
             // 
             // btn_reset
             // 
@@ -387,11 +386,12 @@
             // tbox_total
             // 
             this.tbox_total.BackColor = System.Drawing.Color.Bisque;
-            this.tbox_total.Font = new System.Drawing.Font("標楷體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.tbox_total.Font = new System.Drawing.Font("標楷體", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tbox_total.Location = new System.Drawing.Point(465, 79);
             this.tbox_total.Multiline = true;
             this.tbox_total.Name = "tbox_total";
-            this.tbox_total.Size = new System.Drawing.Size(452, 685);
+            this.tbox_total.ReadOnly = true;
+            this.tbox_total.Size = new System.Drawing.Size(442, 697);
             this.tbox_total.TabIndex = 3;
             // 
             // Form_order

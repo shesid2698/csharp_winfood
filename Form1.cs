@@ -26,9 +26,34 @@ namespace winFood
             if (tbox_orange_jui.Text != "" && int.Parse(tbox_orange_jui.Text) > 0) cb_orange_jui.Checked = true; else cb_orange_jui.Checked = false;
             if (tbox_treemilk.Text != "" && int.Parse(tbox_treemilk.Text) > 0) cb_treemilk.Checked = true; else cb_treemilk.Checked = false;
         }
-        int Menu()
+//        int Menu()
+//        {
+//            int total = 0;
+
+//            if (CheckOrder())
+//            {
+//                listMeal[0].Total = listMeal[0].Price * int.Parse(tbox_blktea.Text);
+ 
+//                listMeal[1].Total = listMeal[1].Price * int.Parse(tbox_milktea.Text);
+
+//                listMeal[2].Total = listMeal[2].Price * int.Parse(tbox_treemilk.Text);
+   
+//                listMeal[3].Total = listMeal[3].Price * int.Parse(tbox_orange_jui.Text);
+//;
+//                listMeal[4].Total = listMeal[4].Price * int.Parse(tbox_burger.Text);
+               
+//                listMeal[5].Total = listMeal[5].Price * int.Parse(tbox_chicken.Text);
+               
+//                for (int i = 0; i < listMeal.Count; i++)
+//                {
+//                    total += listMeal[i].Total;
+//                }
+//            }
+//            return total;
+//        }
+
+        public int CheckOrder()
         {
-            int total = 0;
             List<Meal> listMeal = new List<Meal>()
             {
                  new Meal(0,"泡沫紅茶",30),
@@ -38,45 +63,57 @@ namespace winFood
                  new Meal(4,"漢堡A餐",100),
                  new Meal(5,"麥脆雞塊",120)
             };
-            if (CheckOrder())
+            int total=0;
+            if (cb_blktea.Checked == true && tbox_blktea.Text != "") 
             {
-                listMeal[0].Total = listMeal[0].Price * int.Parse(tbox_blktea.Text);
-                listMeal[1].Total = listMeal[1].Price * int.Parse(tbox_milktea.Text);
-                listMeal[2].Total = listMeal[2].Price * int.Parse(tbox_treemilk.Text);
-                listMeal[3].Total = listMeal[3].Price * int.Parse(tbox_orange_jui.Text);
-                listMeal[4].Total = listMeal[4].Price * int.Parse(tbox_burger.Text);
-                listMeal[5].Total = listMeal[5].Price * int.Parse(tbox_chicken.Text);
-                for (int i = 0; i < listMeal.Count; i++)
-                {
-                    total += listMeal[i].Total;
-                }
+                total += listMeal[0].Price * int.Parse(tbox_blktea.Text);
+                tbox_total.Text += $"{listMeal[0].Name} * {tbox_blktea.Text} = {listMeal[0].Price * int.Parse(tbox_blktea.Text)}\t\n" + Environment.NewLine;
+            }
+            if(cb_burger.Checked == true && tbox_burger.Text != "") 
+            {
+                total += listMeal[4].Price * int.Parse(tbox_burger.Text);
+                tbox_total.Text += $"{listMeal[4].Name} * {tbox_burger.Text} = {listMeal[4].Price * int.Parse(tbox_burger.Text)}\t\n" + Environment.NewLine;
+            }
+            if (cb_chicken.Checked == true && tbox_chicken.Text != "")
+            {
+                total += listMeal[5].Price * int.Parse(tbox_chicken.Text);
+                tbox_total.Text += $"{listMeal[5].Name} * {tbox_chicken.Text} = {listMeal[5].Price * int.Parse(tbox_chicken.Text)}\t\n" + Environment.NewLine;
+            }
+            if (cb_milktea.Checked == true && tbox_milktea.Text != "")
+            {
+                total += listMeal[1].Price * int.Parse(tbox_milktea.Text);
+                tbox_total.Text += $"{listMeal[1].Name} * {tbox_milktea.Text} = {listMeal[1].Price * int.Parse(tbox_milktea.Text)}\t\n" + Environment.NewLine;
+            }
+            if (cb_orange_jui.Checked == true && tbox_orange_jui.Text != "")
+            {
+                total += listMeal[3].Price * int.Parse(tbox_orange_jui.Text);
+                tbox_total.Text += $"{listMeal[3].Name} * {tbox_orange_jui.Text} = {listMeal[3].Price * int.Parse(tbox_orange_jui.Text)}\t\n" + Environment.NewLine;
+            }
+            if (cb_treemilk.Checked == true && tbox_treemilk.Text != "")
+            {
+                total += listMeal[2].Price * int.Parse(tbox_treemilk.Text);
+                tbox_total.Text += $"{listMeal[2].Name} * {tbox_treemilk.Text} = {listMeal[2].Price * int.Parse(tbox_treemilk.Text)}\t\n" + Environment.NewLine;
             }
             return total;
-        }
-        bool CheckOrder()
-        {
-            bool checkedorder = false;
-            if (cb_blktea.Checked == true && tbox_blktea.Text != "") checkedorder = true;
-            if (cb_burger.Checked == true && tbox_burger.Text != "") checkedorder = true;
-            if (cb_chicken.Checked == true && tbox_chicken.Text != "") checkedorder = true;
-            if (cb_milktea.Checked == true && tbox_milktea.Text != "") checkedorder = true;
-            if (cb_orange_jui.Checked == true && tbox_orange_jui.Text != "") checkedorder = true;
-            if (cb_treemilk.Checked == true && tbox_treemilk.Text != "") checkedorder = true;
-            return checkedorder;
         }
 
         private void btn_submit_Click(object sender, EventArgs e)
         {
-            int total= Menu();
+            tbox_total.Text = "";
+            int total = CheckOrder();
+            string line = new string('-', 20);
             if (rbtn_in.Checked == true)
             {
                 total += 10;
-                label_welcome.Text = "總金額 : NT "+ total + "元 !";
-            }else if (rbtn_out.Checked == true)
-            {
-                label_welcome.Text = "總金額 : NT " + Menu() + "元 !";
+                label_welcome.Text = "總金額 : NT " + total + "元 !";
+                tbox_total.Text += line + Environment.NewLine + "總金額 : NT " + total + "元 !";
             }
-            
+            else if (rbtn_out.Checked == true)
+            {
+                label_welcome.Text = "總金額 : NT " + total + "元 !";
+                tbox_total.Text += line + Environment.NewLine + "總金額 : NT " + total + "元 !";
+            }
+            //label_welcome.Text = CheckOrder().ToString();
         }
 
 
